@@ -52,7 +52,13 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-button round v-on:click="loadData" v-loading="loading"
+    <p></p>
+    <el-button
+      round
+      v-on:click="loadData"
+      v-loading="loading"
+      type="primary"
+      plain
       >加载更多</el-button
     >
   </el-main>

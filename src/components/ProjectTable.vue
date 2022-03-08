@@ -1,8 +1,13 @@
 <template>
   <el-main>
-    <el-table :data="tableData" height="800" style="width: 100%" stripe>
-      <el-table-column prop="PROJECT_NAME" label="课题名称" />
-
+    <el-table :data="tableData" height="57em" style="width: 100%" stripe>
+      <el-table-column label="课题名称">
+        <template #default="props">
+          <a v-bind:href="props.row.PROJECT_URL" target="_blank">{{
+            props.row.PROJECT_NAME
+          }}</a>
+        </template>
+      </el-table-column>
       <el-table-column
         prop="PROJECT_GOVERNMENT"
         label="发布单位"
@@ -35,6 +40,11 @@
         sortable
         width="180"
       />
+      <el-table-column type="expand">
+        <template #default="props">
+          {{ props.row.PROJECT_CONTENT }}
+        </template>
+      </el-table-column>
     </el-table>
   </el-main>
 </template>
@@ -99,4 +109,14 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.el-table__expanded-cell {
+  white-space: pre-line;
+  color: #ff8700;
+}
+
+a:link {
+  text-decoration: none;
+  color: #32b17a;
+}
+</style>

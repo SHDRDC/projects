@@ -1,19 +1,40 @@
 <template>
   <el-main>
     <el-table :data="tableData" height="800" style="width: 100%" stripe>
+      <el-table-column prop="PROJECT_NAME" label="课题名称" />
+
       <el-table-column
-        prop="PROJECT_DATE"
-        label="Date"
-        :formatter="formatterTime"
-        width="180"
+        prop="PROJECT_GOVERNMENT"
+        label="发布单位"
+        width=""
+        :filters="[
+          { text: '国家级', value: '国家' },
+          { text: '广东省级', value: '广东' },
+          { text: '深圳市级', value: '深圳' },
+        ]"
+        :filter-method="filterGov"
       />
       <el-table-column
         prop="PROJECT_FUNDS"
         label="课题经费（万）"
+        sortable
+        :sort-method="sortFunding"
         width="180"
       />
-      <el-table-column prop="PROJECT_GOVERNMENT" label="发布单位" width="" />
-      <el-table-column prop="PROJECT_NAME" label="课题名称" />
+      <el-table-column
+        prop="PROJECT_DATE"
+        label="发布时间"
+        :formatter="formatterTime"
+        sortable
+        width="180"
+      />
+      <el-table-column
+        prop="PROJECT_DATE_END"
+        label="截止时间"
+        :formatter="formatterEndTime"
+        sortable
+        width="180"
+      />
     </el-table>
   </el-main>
 </template>
@@ -34,6 +55,17 @@ export default {
     formatterTime(row) {
       let x = new Date(row.PROJECT_DATE * 1000);
       return x.toLocaleDateString();
+    },
+    formatterEndTime(row) {
+      let x = new Date(row.PROJECT_DATE_END * 1000);
+      return x.toLocaleDateString();
+    },
+    sortFunding(a, b, type) {
+      if (type == "asc") {
+        return Number(a.PROJECT_FUNDS) > Number(b.PROJECT_FUNDS) ? -1 : 1;
+      } else {
+        return Number(a.PROJECT_FUNDS) > Number(b.PROJECT_FUNDS) ? 1 : -1;
+      }
     },
   },
   mounted() {

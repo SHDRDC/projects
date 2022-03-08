@@ -1,6 +1,12 @@
 <template>
   <el-main>
-    <el-table :data="tableData" height="57em" style="width: 100%" stripe>
+    <el-table
+      :data="tableData"
+      height="57em"
+      style="width: 100%"
+      stripe
+      v-loading="loading"
+    >
       <el-table-column label="课题名称">
         <template #default="props">
           <a v-bind:href="props.row.PROJECT_URL" target="_blank">{{
@@ -46,6 +52,9 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-button round v-on:click="loadData" v-loading="loading"
+      >加载更多</el-button
+    >
   </el-main>
 </template>
 
@@ -54,11 +63,42 @@ export default {
   name: "ProjectTable",
   data() {
     return {
-      count: 5,
+      pageIndex: 0,
       tableData: [],
+      loading: false,
     };
   },
   methods: {
+    loadData() {
+      this.loading = true;
+      this.pageIndex = this.pageIndex + 1;
+      this.$http
+        .post(
+          "https://keyanpro.com/api/demo/ProjectGov/list",
+          {
+            release_time_seven: "",
+            pro_id: "",
+            project_industry_id: "",
+            release_time_thirty: "",
+            type_id: "",
+            project_status_end: "",
+            project_status: "",
+            help_money_start: "",
+            help_money_end: "",
+            limit: 50,
+            page: this.pageIndex,
+            title: "",
+          },
+          {}
+        )
+        .then((response) => {
+          // console.log(response);
+          this.tableData = this.tableData.concat(
+            response["data"]["data"]["data"]
+          );
+          this.loading = false;
+        });
+    },
     filterGov(value, row) {
       return row.PROJECT_GOVERNMENT.includes(value);
     },
@@ -79,32 +119,7 @@ export default {
     },
   },
   mounted() {
-    this.$http
-      .post(
-        "https://keyanpro.com/api/demo/ProjectGov/list",
-        {
-          release_time_seven: "",
-          pro_id: "",
-          project_industry_id: "",
-          release_time_thirty: "",
-          type_id: "",
-          project_status_end: "",
-          project_status: "",
-          help_money_start: "",
-          help_money_end: "",
-          limit: 50,
-          page: 1,
-          title: "",
-        },
-        {}
-      )
-      .then((response) => {
-        console.log(response);
-        this.tableData = response["data"]["data"]["data"];
-
-        // let demoData = response["data"]["data"]["data"];
-        // console.log(demoData);
-      });
+    this.loadData();
   },
 };
 </script>

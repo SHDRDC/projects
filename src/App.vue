@@ -1,17 +1,20 @@
 <template>
-  <img alt="Vue logo" src="./assets/shdrdc.png" width="400" height="400">
-  <HelloWorld msg="Welcome to Project Information Platform"/>
+  <img alt="Vue logo" src="./assets/shdrdc.png" width="200" height="200" />
+  <HelloWorld msg="Welcome to Project Information Platform" />
+  <ProjectTable />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from "./components/HelloWorld.vue";
+import ProjectTable from "./components/ProjectTable.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    HelloWorld,
+    ProjectTable,
+  },
+};
 </script>
 
 <style>

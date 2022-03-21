@@ -30,6 +30,8 @@
         label="课题经费（万）"
         sortable
         :sort-method="sortFunding"
+        :filters="[{ text: '大于 10 万', value: 10 }]"
+        :filter-method="filterFunding"
         width="180"
       />
       <el-table-column
@@ -107,6 +109,9 @@ export default {
     },
     filterGov(value, row) {
       return row.PROJECT_GOVERNMENT.includes(value);
+    },
+    filterFunding(value, row) {
+      return row.PROJECT_FUNDS > value;
     },
     formatterTime(row) {
       let x = new Date(row.PROJECT_DATE * 1000);

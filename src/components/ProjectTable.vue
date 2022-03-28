@@ -7,7 +7,16 @@
       stripe
       v-loading="loading"
     >
-      <el-table-column label="课题名称">
+      <el-table-column
+        label="课题名称"
+        :filters="[
+          { text: '卫生健康', value: '卫生;健康' },
+          { text: '新冠疫情', value: '新冠;疫情' },
+          { text: '人工智能', value: '人工智能' },
+          { text: '信息技术', value: '信息技术' },
+        ]"
+        :filter-method="filterKeyword"
+      >
         <template #default="props">
           <a v-bind:href="props.row.PROJECT_URL" target="_blank">{{
             props.row.PROJECT_NAME
@@ -25,6 +34,11 @@
         ]"
         :filter-method="filterGov"
       />
+      <!-- <el-table-column
+        prop="PROJECT_CONTENT_KEYWORDS"
+        label="关键词"
+        width="400"
+      /> -->
       <el-table-column
         prop="PROJECT_FUNDS"
         label="课题经费（万）"
@@ -50,6 +64,8 @@
       />
       <el-table-column type="expand">
         <template #default="props">
+          关键词：{{ props.row.PROJECT_CONTENT_KEYWORDS }} <br /><br /><br />
+
           {{ props.row.PROJECT_CONTENT }}
         </template>
       </el-table-column>
@@ -107,12 +123,20 @@ export default {
           this.loading = false;
         });
     },
+    // filter methods
     filterGov(value, row) {
       return row.PROJECT_GOVERNMENT.includes(value);
     },
     filterFunding(value, row) {
       return row.PROJECT_FUNDS > value;
     },
+    filterKeyword(value, row) {
+      return value
+        .split(";")
+        .some((item) => row.PROJECT_CONTENT_KEYWORDS.includes(item));
+      // return
+    },
+    // format methods
     formatterTime(row) {
       let x = new Date(row.PROJECT_DATE * 1000);
       return x.toLocaleDateString();

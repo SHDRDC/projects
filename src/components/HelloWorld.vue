@@ -1,13 +1,6 @@
 <template>
   <div class="hello">
     <h1>课题发布信息平台</h1>
-    <!-- <h1>{{ msg }}</h1>
-    <p>
-      参照此脚手架进行构建:
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener"
-        >vue-cli documentation</a
-      >.
-    </p> -->
   </div>
 </template>
 

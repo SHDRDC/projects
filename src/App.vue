@@ -1,18 +1,44 @@
 <template>
+  <el-menu
+    :default-active="activeIndex"
+    class="el-menu-demo"
+    mode="horizontal"
+    @select="handleSelect"
+  >
+    <el-menu-item index="1">课题申报</el-menu-item>
+    <el-menu-item index="2">奖励申报</el-menu-item>
+  </el-menu>
+
   <img alt="Vue logo" src="./assets/shdrdc.png" width="200" height="200" />
-  <HelloWorld msg="Welcome to Project Information Platform" />
-  <ProjectTable />
+  <HelloWorld msg="这是标题" />
+
+  <ProjectTable v-if="activeIndex === '1'" />
+  <AwardTable v-if="activeIndex === '2'" />
 </template>
 
 <script>
 import HelloWorld from "./components/HelloWorld.vue";
 import ProjectTable from "./components/ProjectTable.vue";
+import AwardTable from "./components/AwardTable.vue";
 
 export default {
   name: "App",
   components: {
     HelloWorld,
     ProjectTable,
+    AwardTable,
+  },
+  data() {
+    return {
+      activeIndex: "1",
+    };
+  },
+  methods: {
+    handleSelect(key, keyPath) {
+      console.log(key, keyPath);
+      console.log(key);
+      this.activeIndex = key;
+    },
   },
 };
 </script>

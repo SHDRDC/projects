@@ -13,8 +13,8 @@
     <el-menu-item index="2">奖励申报</el-menu-item>
   </el-menu>
 
-  <ProjectTable v-if="activeIndex === '1'" />
-  <AwardTable class="main" v-if="activeIndex === '2'" />
+  <ProjectTable v-bind:show="activeIndex === '1'" />
+  <AwardTable class="main" v-bind:show="activeIndex === '2'" />
 </template>
 
 <script>

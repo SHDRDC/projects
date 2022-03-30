@@ -1,5 +1,5 @@
 <template>
-  <el-table :data="tableData" style="width: 100%" height="57em" stripe>
+  <el-table :data="tableData" style="width: 100%" height="37em" stripe>
     <el-table-column type="index" label="序号" width="100"> </el-table-column>
     <!-- <el-table-column prop="index" label="序号" width="180" /> -->
     <el-table-column label="奖项">
@@ -10,6 +10,12 @@
     <el-table-column prop="date" label="通知时间" />
     <el-table-column prop="class" label="类别" />
   </el-table>
+  <p></p>
+  <p>
+    重点参考：<a href="./demo.pdf" target="_blank"
+      >南方科技大学科研奖励申报手册</a
+    >
+  </p>
 </template>
 
 <script>

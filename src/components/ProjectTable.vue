@@ -1,85 +1,83 @@
 <template>
-  <el-main>
-    <el-table
-      :data="tableData"
-      height="57em"
-      style="width: 100%"
-      stripe
-      v-loading="loading"
+  <el-table
+    :data="tableData"
+    height="57em"
+    style="width: 100%"
+    stripe
+    v-loading="loading"
+  >
+    <el-table-column
+      label="课题名称"
+      :filters="[
+        { text: '卫生健康', value: '卫生;健康' },
+        { text: '新冠疫情', value: '新冠;疫情' },
+        { text: '人工智能', value: '人工智能' },
+        { text: '信息技术', value: '信息技术' },
+      ]"
+      :filter-method="filterKeyword"
     >
-      <el-table-column
-        label="课题名称"
-        :filters="[
-          { text: '卫生健康', value: '卫生;健康' },
-          { text: '新冠疫情', value: '新冠;疫情' },
-          { text: '人工智能', value: '人工智能' },
-          { text: '信息技术', value: '信息技术' },
-        ]"
-        :filter-method="filterKeyword"
-      >
-        <template #default="props">
-          <a v-bind:href="props.row.PROJECT_URL" target="_blank">{{
-            props.row.PROJECT_NAME
-          }}</a>
-        </template>
-      </el-table-column>
-      <el-table-column
-        prop="PROJECT_GOVERNMENT"
-        label="发布单位"
-        width=""
-        :filters="[
-          { text: '国家级', value: '国家' },
-          { text: '广东省级', value: '广东' },
-          { text: '深圳市级', value: '深圳' },
-        ]"
-        :filter-method="filterGov"
-      />
-      <!-- <el-table-column
+      <template #default="props">
+        <a v-bind:href="props.row.PROJECT_URL" target="_blank">{{
+          props.row.PROJECT_NAME
+        }}</a>
+      </template>
+    </el-table-column>
+    <el-table-column
+      prop="PROJECT_GOVERNMENT"
+      label="发布单位"
+      width=""
+      :filters="[
+        { text: '国家级', value: '国家' },
+        { text: '广东省级', value: '广东' },
+        { text: '深圳市级', value: '深圳' },
+      ]"
+      :filter-method="filterGov"
+    />
+    <!-- <el-table-column
         prop="PROJECT_CONTENT_KEYWORDS"
         label="关键词"
         width="400"
       /> -->
-      <el-table-column
-        prop="PROJECT_FUNDS"
-        label="课题经费（万）"
-        sortable
-        :sort-method="sortFunding"
-        :filters="[{ text: '大于 10 万', value: 10 }]"
-        :filter-method="filterFunding"
-        width="180"
-      />
-      <el-table-column
-        prop="PROJECT_DATE"
-        label="发布时间"
-        :formatter="formatterTime"
-        sortable
-        width="180"
-      />
-      <el-table-column
-        prop="PROJECT_DATE_END"
-        label="截止时间"
-        :formatter="formatterEndTime"
-        sortable
-        width="180"
-      />
-      <el-table-column type="expand">
-        <template #default="props">
-          关键词：{{ props.row.PROJECT_CONTENT_KEYWORDS }} <br /><br /><br />
+    <el-table-column
+      prop="PROJECT_FUNDS"
+      label="课题经费（万）"
+      sortable
+      :sort-method="sortFunding"
+      :filters="[{ text: '大于 10 万', value: 10 }]"
+      :filter-method="filterFunding"
+      width="180"
+    />
+    <el-table-column
+      prop="PROJECT_DATE"
+      label="发布时间"
+      :formatter="formatterTime"
+      sortable
+      width="180"
+    />
+    <el-table-column
+      prop="PROJECT_DATE_END"
+      label="截止时间"
+      :formatter="formatterEndTime"
+      sortable
+      width="180"
+    />
+    <el-table-column type="expand">
+      <template #default="props">
+        关键词：{{ props.row.PROJECT_CONTENT_KEYWORDS }} <br /><br /><br />
 
-          {{ props.row.PROJECT_CONTENT }}
-        </template>
-      </el-table-column>
-    </el-table>
-    <p></p>
-    <el-button
-      round
-      v-on:click="loadData"
-      v-loading="loading"
-      type="primary"
-      plain
-      >加载更多</el-button
-    >
-  </el-main>
+        {{ props.row.PROJECT_CONTENT }}
+      </template>
+    </el-table-column>
+  </el-table>
+  <p></p>
+  <el-button
+    round
+    v-on:click="loadData"
+    v-loading="loading"
+    type="primary"
+    plain
+    >加载更多</el-button
+  >
 </template>
 
 <script>

@@ -1,4 +1,8 @@
 <template>
+  <div>
+    <img alt="Vue logo" src="./assets/shdrdc.png" width="200" height="200" />
+    <HelloWorld msg="这是标题" />
+  </div>
   <el-menu
     :default-active="activeIndex"
     class="el-menu-demo"
@@ -9,11 +13,8 @@
     <el-menu-item index="2">奖励申报</el-menu-item>
   </el-menu>
 
-  <img alt="Vue logo" src="./assets/shdrdc.png" width="200" height="200" />
-  <HelloWorld msg="这是标题" />
-
   <ProjectTable v-if="activeIndex === '1'" />
-  <AwardTable v-if="activeIndex === '2'" />
+  <AwardTable class="main" v-if="activeIndex === '2'" />
 </template>
 
 <script>
@@ -44,6 +45,13 @@ export default {
 </script>
 
 <style>
+.txtCenter {
+  text-align: center;
+}
+
+.main {
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

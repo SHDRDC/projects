@@ -11,10 +11,15 @@
   >
     <el-menu-item index="1">课题申报</el-menu-item>
     <el-menu-item index="2">奖励申报</el-menu-item>
+    <el-menu-item index="3"
+      ><a href="https://www.shenkexin.com/project/notices.html" target="_blank"
+        >深圳专项</a
+      ></el-menu-item
+    >
   </el-menu>
 
   <ProjectTable v-bind:show="activeIndex === '1'" />
-  <AwardTable class="main" v-bind:show="activeIndex === '2'" />
+  <AwardTable v-bind:show="activeIndex === '2'" />
 </template>
 
 <script>
@@ -38,7 +43,9 @@ export default {
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
       console.log(key);
-      this.activeIndex = key;
+      if (key != "3") {
+        this.activeIndex = key;
+      }
     },
   },
 };
@@ -47,9 +54,6 @@ export default {
 <style>
 .txtCenter {
   text-align: center;
-}
-
-.main {
 }
 
 #app {
